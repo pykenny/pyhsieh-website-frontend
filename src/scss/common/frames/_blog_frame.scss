@@ -1,0 +1,40 @@
+@use '../../../../node_modules/purecss/build/base.css';
+@use '../../../../node_modules/highlight.js/scss/agate.scss';
+@use '../fonts/fonts';
+
+body {
+  width: 100%;
+}
+
+.page-top-container {
+  height: 100%;
+  display: grid;
+  // grid-template-rows: $top-banner-height 1fr;
+  grid-template-areas:
+    "banner banner"
+    "content-view sidebar"
+    "footer"
+  ;
+  justify-content: stretch;
+  align-content: start;
+
+  & > * {
+    box-sizing: border-box;
+  }
+}
+
+.banner {
+  grid-area: "banner";
+}
+
+.content-view {
+  grid-area: "content-view";
+}
+
+.sidebar {
+  grid-area: "sidebar";
+}
+
+.footer {
+  grid-area: "footer";
+}

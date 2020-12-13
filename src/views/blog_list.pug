@@ -1,0 +1,51 @@
+extends blog_frame.pug
+
+- var nextPageText = '< Next';
+- var prevPageText = 'Prev >';
+
+block headContent
+  link(rel='stylesheet', href=`${F.createStaticStyleURL('blog_list.css')}`)
+
+block reactScripts
+  script(src=`${F.createStaticScriptURL('blog_list/App.js')}`)
+
+mixin article(title, date, tags)
+  div(class='article-item-container')
+    div(class='article-item-title')= title
+    div(class='article-item-date' timestamp=date)
+    div(class='article-item-tag-list')
+      each tag in tags
+        span(class='article-item-tag-list-item')= tag
+
+mixin tagItem(tag_name)
+  div(class='tag-item')
+    a(class='tag-link' href=`${F.createTagDefaultURL(tag_name)}`)= tag_name
+
+block contentViewMain
+  div(class='post-list-container')
+
+    if postsData.tag
+      p(class='tag-filter-description') Articles with tag #{postsData.tag}:
+
+    div(class='post-list-article-list')
+      each articleItem in postsData.posts
+        +article(articleItem.title, articleItem.date, articleItem.tags)
+
+block contentViewNavigation
+  div(class='post-navigation-container')
+    span(class=`navigation-option next ${postsData.hasNextPage ? "enabled" : "disabled"}`)
+      if postsData.hasNextPage
+        a(
+          class=`navigation-option-link`
+          href=`${postsData.tag ? F.createNextPageURL(postsData.pageNum) : F.createNextTagPageURL(postData.pageNum, postData.tag)}`
+        )= nextPageText
+      else
+        a(class=`navigation-option-link`)= nextPageText
+    span(class=`navigation-option prev ${postsData.hasPrevPage ? "enabled" : "disabled"}`)
+      if postsData.hasPrevPage
+        a(
+          class=`navigation-option-link`
+          href=`${postsData.tag ? F.createPrevPageURL(postsData.pageNum) : F.createPrevTagPageURL(postData.pageNum, postData.tag)}`
+        )= prevPageText
+      else
+        a(class=`navigation-option-link`)= prevPageText

@@ -1,0 +1,23 @@
+mixin tagItem(tag_name)
+  div(class='tag-item')
+    a(class='tag-link')= tag_name
+
+doctype html
+html
+  head
+    meta(http-equiv='X-UA-Compatible')
+    meta(charset='utf-8')
+    block headContent
+  body
+    div(class='page-top-container')
+      div(class='banner')
+      div(class='content-view')
+        div(class='content-view-main')
+          block contentViewMain
+        div(class='content-view-navigation')
+          block contentViewNevigation
+      div(class='sidebar')
+        include taglist.pug
+      div(class='footer')
+        include footer.pug
+    block reactScripts

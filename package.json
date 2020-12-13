@@ -1,0 +1,53 @@
+{
+  "name": "pyhsieh-website-frontend",
+  "version": "0.1.0",
+  "description": "Personal website's frontend server",
+  "repository": "git@github.com:pykenny/pyhsieh-website-frontend.git",
+  "author": "Po-Yu Hsieh <pykenny@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/d3-time-format": "^3.0.0",
+    "axios": "^0.19.2",
+    "axios-case-converter": "^0.6.0",
+    "chokidar": "^3.4.3",
+    "d3-time-format": "^3.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.2.0",
+    "highlight.js": "^10.4.0",
+    "http-proxy-middleware": "^1.0.6",
+    "lodash": "^4.17.20",
+    "prop-types": "^15.7.2",
+    "pug": "^3.0.0",
+    "purecss": "^2.0.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "snakecase-keys": "^3.2.1",
+    "yargs": "^16.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "autoprefixer": "^10.0.2",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "parcel": "^2.0.0-nightly.462",
+    "postcss": "^8.1.10",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-modules": "^3.2.2",
+    "sass": "^1.29.0"
+  },
+  "scripts": {
+    "boot-dev": "yarn install",
+    "boot-prod": "yarn install && yarn build && yarn install --production",
+    "dev": "node ./server/dev_server.js",
+    "cleanup": "rm -rf .parcel-cache dist",
+    "copy-static": "cp -R ./src/views ./dist/views/blog_*.pug",
+    "build": "yarn cleanup && npx parcel build \"src/views/editor.html\" && yarn copy-static"
+  }
+}

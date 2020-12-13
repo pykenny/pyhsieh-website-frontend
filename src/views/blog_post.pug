@@ -1,0 +1,45 @@
+extends blog_frame.pug
+
+- var nextPageText = '< Next';
+- var prevPageText = 'Prev >';
+
+block headContent
+  link(rel='stylesheet', href=`${F.createStaticStyleURL('blog_post.css')}`)
+
+block reactScripts
+  script(src=`${F.createStaticScriptURL('blog_post/App.js')}`)
+
+mixin articleTitle(title, date, tags)
+  div(class='article-title-container')
+    div(class='article-title-title')= title
+    div(class='article-title-date' timestamp=date)
+    div(class='article-title-tag-list')
+      each tag in tags
+        span(class='article-title-tag-list-item')= tag
+
+mixin tagItem(tag_name)
+  div(class='tag-item')
+    a(class='tag-link' href=`${F.createTagDefaultURL(tag_name)}`)= tag_name
+
+block contentViewMain
+  +articleTitle(postData.title, postData.created, postData.tags)
+  div(class='article-content-container') !{postData.content}
+
+block contentViewNevigation
+  div(class='post-navigation-container')
+    span(class=`navigation-option next ${postData.synonymNext ? "enabled" : "disabled"}`)
+      if postData.synonymNext
+        a(
+          class=`navigation-option-link`
+          href=`${F.createArticleURL(postData.synonymNext)}`
+        )= nextPageText
+      else
+        a(class=`navigation-option-link`)= nextPageText
+    span(class=`navigation-option prev ${postData.synonymPrev ? "enabled" : "disabled"}`)
+      if postData.synonymPrev
+        a(
+          class=`navigation-option-link`
+          href=`${F.createArticleURL(postData.synonymPrev)}`
+        )= prevPageText
+      else
+        a(class=`navigation-option-link`)= prevPageText

@@ -1,0 +1,7 @@
+mixin tagItem(tag_name)
+  div(class='tag-item')
+    a(class='tag-link')= tag_name
+
+div(class='tag-list')
+  each tag in tagList.data:
+    +tagItem(tag)
