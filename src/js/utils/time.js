@@ -10,6 +10,4 @@ const formatter = timeFormat(READABLE_DATE_FORMAT);
 
 const convertTimestamp = (timestamp) => formatter(parser(timestamp));
 
-export {
-  convertTimestamp as default,
-};
+export { convertTimestamp as default };

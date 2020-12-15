@@ -1,8 +1,9 @@
 const Path = require('path');
-const process = require('process');
+const fs = require('fs');
 const promiseFs = require('fs').promises;
 const { exec } = require('child_process');
 const { stdout } = require('process');
+const https = require('https');
 
 const chokidar = require('chokidar');
 const express = require('express');
@@ -13,34 +14,53 @@ const routerMain = require('../routes/main');
 const routerBlog = require('../routes/blog');
 
 /* File paths used in dev mode */
-const VIEW_GLOB_SRC = Path.join(__filename, '../../src/views/*.pug');
-const VIEW_GLOB_TGT_DIR = Path.join(__filename, '../../dist/views/');
-const SCRIPT_TARGET_GLOB = Path.join(__filename, '../../src/js/site/*/index.jsx');
-const STYLE_TARGET_GLOB = Path.join(__filename, '../../src/scss/site/*/style.scss');
+const VIEW_GLOB_SRC = Path.join(__dirname, '../../src/views/*.pug');
+const VIEW_GLOB_TGT_DIR = Path.join(__dirname, '../../dist/views/');
+const SCRIPT_TARGET_GLOB = Path.join(
+  __dirname,
+  '../../src/js/site/*/index.jsx',
+);
+const STYLE_TARGET_GLOB = Path.join(
+  __dirname,
+  '../../src/scss/site/*/style.scss',
+);
 /* File paths used in prod mode */
-const PROD_STATIC_PATH = Path.join(__filename, '../../dist');
+const PROD_STATIC_PATH = Path.join(__dirname, '../../dist');
 
 /* Routes for static files */
 const STATIC_ROOT_ROUTE = '/static';
 const SCRIPTS_EXTS = ['js'];
 const STYLES_EXTS = ['css'];
 const SHARED_ASSET_EXTS = ['ttf', 'eot'];
-const STATIC_ROUTE_SCRIPT = `${STATIC_ROOT_ROUTE}/:view/[^/]+.(${SCRIPTS_EXTS.join('|')})(.map)?`;
-const STATIC_ROUTE_STYLE = `${STATIC_ROOT_ROUTE}/:view/[^/]+.(${STYLES_EXTS.join('|')})(.map)?`;
-const STATIC_ROUTE_SHARED_ASSET = `${STATIC_ROOT_ROUTE}/[^/]+.(${SHARED_ASSET_EXTS.join('|')})`;
+const STATIC_ROUTE_SCRIPT = `${STATIC_ROOT_ROUTE}/:view/[^/]+.(${SCRIPTS_EXTS.join(
+  '|',
+)})(.map)?`;
+const STATIC_ROUTE_STYLE = `${STATIC_ROOT_ROUTE}/:view/[^/]+.(${STYLES_EXTS.join(
+  '|',
+)})(.map)?`;
+const STATIC_ROUTE_SHARED_ASSET = `${STATIC_ROOT_ROUTE}/[^/]+.(${SHARED_ASSET_EXTS.join(
+  '|',
+)})`;
 const IMG_ROOT_ROUTE = '/img';
 
-const run = (argv) => {
+const run = async (argv) => {
   const devMode = process.env.NODE_ENV === 'development';
-  const devPortScript = devMode ? parseInt(argv['dev-port-script'], 10) : undefined;
-  const devPortStyle = devMode ? parseInt(argv['dev-port-style'], 10) : undefined;
-  const parcelOptionsScript = devMode ? argv['parcel-options-script'] : undefined;
+  const devPortScript = devMode
+    ? parseInt(argv['dev-port-script'], 10)
+    : undefined;
+  const devPortStyle = devMode
+    ? parseInt(argv['dev-port-style'], 10)
+    : undefined;
+  const parcelOptionsScript = devMode
+    ? argv['parcel-options-script']
+    : undefined;
   const parcelOptionsStyle = devMode ? argv['parcel-options-style'] : undefined;
   const {
-    // SITE_HOST: siteHost,
-    // BACKEND_RESOURCE_HOST: backendResourceHost,
     IMAGE_DIR_PATH: imageDirPath,
     SERVER_PORT: serverPort,
+    SSL_KEY_PATH: sslKeyPath,
+    SSL_CERT_PATH: sslCertPath,
+    // ACCEPTED_HOSTS: acceptedHostsStr,
   } = process.env;
 
   let parcelServerScript;
@@ -51,26 +71,37 @@ const run = (argv) => {
 
   if (devMode) {
     process.env.FORCE_COLOR = 2; // Enable color tts
+    // Note: HRM uses Websocket connection, which means running dev server
+    //       requires Parcel servers to run in HTTPS mode as well. To reduce
+    //       additional settings I decide to disable HRM on Parcel servers.
     parcelServerScript = exec(
-      `npx parcel "${SCRIPT_TARGET_GLOB}" --no-cache --port ${devPortScript} --public-url ${STATIC_ROOT_ROUTE} ${parcelOptionsScript} ${SCRIPT_TARGET_GLOB}`,
-      {},
+      `npx parcel "${SCRIPT_TARGET_GLOB}" --port ${devPortScript} --public-url ${STATIC_ROOT_ROUTE} ${parcelOptionsScript} --no-hmr ${SCRIPT_TARGET_GLOB}`,
+      { detached: true },
       (error) => {
         if (error) {
-          process.stdout.write('Parcel dev-script server terminated with error:\n');
+          process.stdout.write(
+            'Parcel dev-script server terminated with error:\n',
+          );
           process.stdout.write(error);
         }
-        process.stdout.write('Parcel dev-script server terminated successfully.\n');
+        process.stdout.write(
+          'Parcel dev-script server terminated successfully.\n',
+        );
       },
     );
     parcelServerStyle = exec(
-      `npx parcel "${STYLE_TARGET_GLOB}" --no-cache --port ${devPortStyle} --public-url ${STATIC_ROOT_ROUTE} ${parcelOptionsStyle} ${STYLE_TARGET_GLOB}`,
-      {},
+      `npx parcel "${STYLE_TARGET_GLOB}" --port ${devPortStyle} --public-url ${STATIC_ROOT_ROUTE} ${parcelOptionsStyle} --no-hmr ${STYLE_TARGET_GLOB}`,
+      { detached: true },
       (error) => {
         if (error) {
-          process.stdout.write('Parcel dev-script server terminated with error:\n');
+          process.stdout.write(
+            'Parcel dev-script server terminated with error:\n',
+          );
           process.stdout.write(error);
         }
-        process.stdout.write('Parcel dev-style server terminated successfully.\n');
+        process.stdout.write(
+          'Parcel dev-style server terminated successfully.\n',
+        );
       },
     );
 
@@ -80,38 +111,46 @@ const run = (argv) => {
     parcelServerStyle.stderr.pipe(process.stderr);
 
     parcelScriptMiddleware = createProxyMiddleware({
-      target: `localhost:${devPortScript}`,
+      target: `http://localhost:${devPortScript}/`,
+      changeOrigin: true,
     });
     parcelStyleMiddleware = createProxyMiddleware({
-      target: `localhost:${devPortStyle}`,
+      target: `http://localhost:${devPortStyle}/`,
+      changeOrigin: true,
     });
 
     /*
-     * Chokidar will automatically trigger 'add' event on initial search, so
-     * it will run initial sync for us!
-     * Currently we'll just take a lazy approach and omit all file system
-     * errors occur on cp/unlink operations.
+     *  - Chokidar will automatically trigger 'add' event on initial search, so
+     *    it will run initial sync for us!
+     *  - Currently we'll just take a lazy approach and omit all file system
+     *    errors occur on cp/unlink operations.
      */
+    if (
+      !fs.existsSync(VIEW_GLOB_TGT_DIR)
+      || !fs.lstatSync(VIEW_GLOB_TGT_DIR).isDirectory()
+    ) {
+      promiseFs.mkdir(VIEW_GLOB_TGT_DIR, { recursive: true });
+    }
     templateWatcher = chokidar.watch(VIEW_GLOB_SRC);
     templateWatcher.on('add', (filePath) => {
-      const targetPath = Path.join(
-        VIEW_GLOB_TGT_DIR, Path.basename(filePath),
+      const targetPath = Path.join(VIEW_GLOB_TGT_DIR, Path.basename(filePath));
+      stdout.write(
+        `New template file "${filePath}" found. Syncing to dist directory...\n`,
       );
-      stdout.write(`New template file "${filePath}" found. Syncing to dist directory...`);
       promiseFs.copyFile(filePath, targetPath).catch(() => {});
     });
     templateWatcher.on('change', (filePath) => {
-      const targetPath = Path.join(
-        VIEW_GLOB_TGT_DIR, Path.basename(filePath),
+      const targetPath = Path.join(VIEW_GLOB_TGT_DIR, Path.basename(filePath));
+      stdout.write(
+        `Detect change template file "${filePath}". Syncing to dist directory...\n`,
       );
-      stdout.write(`Detect change template file "${filePath}". Syncing to dist directory...`);
       promiseFs.copyFile(filePath, targetPath).catch(() => {});
     });
     templateWatcher.on('unlink', (filePath) => {
-      const targetPath = Path.join(
-        VIEW_GLOB_TGT_DIR, Path.basename(filePath),
+      const targetPath = Path.join(VIEW_GLOB_TGT_DIR, Path.basename(filePath));
+      stdout.write(
+        `Detect removal of template file "${filePath}". Syncing to dist directory...\n`,
       );
-      stdout.write(`Detect removal of template file "${filePath}". Syncing to dist directory...`);
       promiseFs.unlink(targetPath).catch(() => {});
     });
   }
@@ -121,6 +160,17 @@ const run = (argv) => {
   server.set('views', VIEW_GLOB_TGT_DIR);
   server.set('view engine', 'pug');
   // Security headers
+  /*
+  {
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", ...acceptedHosts],
+        styleSrc: ["'self'", ...acceptedHosts],
+      },
+    },
+  }
+  */
   server.use(helmet());
   // JSON / URL support
   server.use(express.json());
@@ -138,10 +188,21 @@ const run = (argv) => {
   server.use(IMG_ROOT_ROUTE, express.static(imageDirPath));
 
   // Routers
-  server.get('/', routerMain);
-  server.get('/blog', routerBlog);
+  server.use('/', routerMain);
+  server.use('/blog', routerBlog);
 
-  const serverHandle = server.listen(serverPort, () => {
+  let sslKey;
+  let sslCert;
+  let mainServer;
+  if (devMode) {
+    sslKey = await promiseFs.readFile(sslKeyPath);
+    sslCert = await promiseFs.readFile(sslCertPath);
+    mainServer = https.createServer({ key: sslKey, cert: sslCert }, server);
+  } else {
+    mainServer = server;
+  }
+
+  const serverHandle = mainServer.listen(serverPort, () => {
     process.stdout.write(`Listening to port ${serverPort}...\n`);
   });
 

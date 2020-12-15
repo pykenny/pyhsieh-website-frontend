@@ -1,3 +1,6 @@
+# Prettier
+.prettierignore
+
 # Logs
 logs
 *.log

@@ -1,6 +1,6 @@
 mixin tagItem(tag_name)
-  div(class='tag-item')
-    a(class='tag-link')= tag_name
+  .tag-item
+    a.tag-link= tag_name
 
 doctype html
 html
@@ -9,15 +9,16 @@ html
     meta(charset='utf-8')
     block headContent
   body
-    div(class='page-top-container')
-      div(class='banner')
-      div(class='content-view')
-        div(class='content-view-main')
+    .page-top-container
+      .banner
+        include banner.pug
+      .content-view
+        .content-view-main
           block contentViewMain
-        div(class='content-view-navigation')
-          block contentViewNevigation
-      div(class='sidebar')
+        .content-view-navigation
+          block contentViewNavigation
+      .sidebar
         include taglist.pug
-      div(class='footer')
+      .footer
         include footer.pug
     block reactScripts

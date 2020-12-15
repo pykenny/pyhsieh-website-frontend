@@ -16,6 +16,7 @@
     "helmet": "^4.2.0",
     "highlight.js": "^10.4.0",
     "http-proxy-middleware": "^1.0.6",
+    "lazysizes": "^5.2.2",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "pug": "^3.0.0",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
+    "@prettier/plugin-pug": "^1.13.1",
     "autoprefixer": "^10.0.2",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -36,18 +38,32 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "mrm": "^2.5.13",
     "parcel": "^2.0.0-nightly.462",
     "postcss": "^8.1.10",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-modules": "^3.2.2",
+    "prettier": "^2.2.1",
     "sass": "^1.29.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --no-stash"
+    }
+  },
+  "lint-staged": {
+    "*": "prettier --list-different --ignore-unknown --write",
+    "**/*.{js,jsx}": "eslint --fix"
   },
   "scripts": {
     "boot-dev": "yarn install",
     "boot-prod": "yarn install && yarn build && yarn install --production",
-    "dev": "node ./server/dev_server.js",
+    "dev": "NODE_ENV=\"development\" node ./server/server.js",
+    "start": "NODE_ENV=\"production\" node ./server/server.js",
     "cleanup": "rm -rf .parcel-cache dist",
-    "copy-static": "cp -R ./src/views ./dist/views/blog_*.pug",
-    "build": "yarn cleanup && npx parcel build \"src/views/editor.html\" && yarn copy-static"
+    "sync-templates": "mkdir -p ./dist/views &> /dev/null; cp -R ./src/views/* ./dist/views/",
+    "build": "NODE_ENV=\"development\" yarn cleanup && npx parcel build ./src/js/site/*/index.jsx && npx parcel build ./src/scss/site/*/style.scss && yarn sync-templates"
   }
 }

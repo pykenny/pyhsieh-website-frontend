@@ -1,12 +1,12 @@
 @use '../fonts/fonts';
 
 /* Layout for GitHub-Flavoured Markdown */
-$green-darker-olive: #2B3618;
-$green-dark-olive: #556B2F;
-$yellow-light: #FFFFE0;
-$yellow-papayawhip: #FFEFD5;
-$grey-light: #D3D3D3;
-$grey-lighter: #EDEDED;
+$green-darker-olive: #2b3618;
+$green-dark-olive: #556b2f;
+$yellow-light: #ffffe0;
+$yellow-papayawhip: #ffefd5;
+$grey-light: #d3d3d3;
+$grey-lighter: #ededed;
 
 @mixin markdown {
   // Reset margins
@@ -20,7 +20,7 @@ $grey-lighter: #EDEDED;
   h4,
   h5,
   h6 {
-    font-family: "Red Hat Display";
+    font-family: 'Red Hat Display';
   }
 
   h1,
@@ -60,8 +60,11 @@ $grey-lighter: #EDEDED;
     color: #696969;
   }
 
-  p, blockquote, ol, ul {
-    font-family: "Crimson Pro";
+  p,
+  blockquote,
+  ol,
+  ul {
+    font-family: 'Crimson Pro';
     margin: 0.3em 0 0 0;
     line-height: 1.25em;
   }
@@ -91,7 +94,11 @@ $grey-lighter: #EDEDED;
   hr {
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.75),
+      rgba(0, 0, 0, 0)
+    );
   }
 
   a,
@@ -110,7 +117,8 @@ $grey-lighter: #EDEDED;
   }
 
   // Prevent nested font growth.
-  ol, ul {
+  ol,
+  ul {
     list-style-position: inside;
     margin-left: 18px;
     font-size: 18px;
@@ -148,17 +156,19 @@ $grey-lighter: #EDEDED;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     padding: 8px;
+    max-width: 75%;
 
     // Cap the image if it's too large.
     img {
-      max-width: 75%;
+      display: block;
+      width: 100%;
     }
 
     img + .caption {
       margin-top: 4px;
-      font-family: "Crimson Pro";
+      font-family: 'Crimson Pro';
       line-height: 1.25em;
     }
   }

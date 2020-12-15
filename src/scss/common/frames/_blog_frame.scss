@@ -1,6 +1,6 @@
+@use '../fonts/fonts';
 @use '../../../../node_modules/purecss/build/base.css';
 @use '../../../../node_modules/highlight.js/scss/agate.scss';
-@use '../fonts/fonts';
 
 body {
   width: 100%;
@@ -11,10 +11,9 @@ body {
   display: grid;
   // grid-template-rows: $top-banner-height 1fr;
   grid-template-areas:
-    "banner banner"
-    "content-view sidebar"
-    "footer"
-  ;
+    'banner banner'
+    'content-view sidebar'
+    'footer footer';
   justify-content: stretch;
   align-content: start;
 
@@ -24,17 +23,17 @@ body {
 }
 
 .banner {
-  grid-area: "banner";
+  grid-area: banner;
 }
 
 .content-view {
-  grid-area: "content-view";
+  grid-area: content-view;
 }
 
 .sidebar {
-  grid-area: "sidebar";
+  grid-area: sidebar;
 }
 
 .footer {
-  grid-area: "footer";
+  grid-area: footer;
 }

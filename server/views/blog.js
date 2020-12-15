@@ -12,8 +12,17 @@ const blogPostListByPage = async (req, res, next) => {
   const postsReq = getPostsByPage(page);
   const tagListReq = getTagList();
   try {
-    const [postsData, tagList] = await Promise.all([postsReq, tagListReq]);
-    res.render('blog_list', generateTemplateLocals({ postsData, tagList }));
+    const [{ data: postsData }, { data: tagList }] = await Promise.all([
+      postsReq,
+      tagListReq,
+    ]);
+    res.render(
+      'blog_list',
+      generateTemplateLocals({
+        postsData,
+        tagList,
+      }),
+    );
   } catch (err) {
     next();
   }
@@ -24,8 +33,17 @@ const blogPostListByPageAndTag = async (req, res, next) => {
   const postsReq = getPostsByPageAndTag(tag, page);
   const tagListReq = getTagList();
   try {
-    const [postsData, tagList] = await Promise.all([postsReq, tagListReq]);
-    res.render('blog_list', generateTemplateLocals({ postsData, tagList }));
+    const [{ data: postsData }, { data: tagList }] = await Promise.all([
+      postsReq,
+      tagListReq,
+    ]);
+    res.render(
+      'blog_list',
+      generateTemplateLocals({
+        postsData,
+        tagList,
+      }),
+    );
   } catch (err) {
     next();
   }
@@ -45,8 +63,17 @@ const blogPost = async (req, res, next) => {
   const postReq = getPostsData(synonym);
   const tagListReq = getTagList();
   try {
-    const [postData, tagList] = await Promise.all([postReq, tagListReq]);
-    res.render('blog_post', generateTemplateLocals({ postData, tagList }));
+    const [{ data: postData }, { data: tagList }] = await Promise.all([
+      postReq,
+      tagListReq,
+    ]);
+    res.render(
+      'blog_post',
+      generateTemplateLocals({
+        postData,
+        tagList,
+      }),
+    );
   } catch (err) {
     next();
   }

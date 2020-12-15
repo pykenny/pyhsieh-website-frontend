@@ -1,2 +1,6 @@
 @use '../../common/frames/blog_frame';
 @use '../../common/frames/markdown';
+
+.markdown {
+  @include markdown.markdown;
+}

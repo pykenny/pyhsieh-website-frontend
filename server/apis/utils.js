@@ -1,27 +1,28 @@
 const axiosLib = require('axios');
-const applyCaseMiddleware = require('axios-case-converter');
+const applyCaseMiddleware = require('axios-case-converter').default;
 
 // URL Management
-const RESOURCE_MANAGEMENT_HOST = process.env.SITE_HOST;
+const { BACKEND_RESOURCE_HOST } = process.env;
+const RESOURCE_MANAGEMENT_ROUTE = `${BACKEND_RESOURCE_HOST}/resource`;
 
 function getPostsByPageURL(page) {
-  return `${RESOURCE_MANAGEMENT_HOST}/posts_by_page/${page}`;
+  return `${RESOURCE_MANAGEMENT_ROUTE}/posts_by_page/${page}`;
 }
 
 function getPostsByPageAndTagURL(tag, page) {
-  return `${RESOURCE_MANAGEMENT_HOST}/posts_by_page_and_tag/${tag}/${page}`;
+  return `${RESOURCE_MANAGEMENT_ROUTE}/posts_by_page_and_tag/${tag}/${page}`;
 }
 
 function getPostsDataURL(synonym) {
-  return `${RESOURCE_MANAGEMENT_HOST}/get_post_data/${synonym}`;
+  return `${RESOURCE_MANAGEMENT_ROUTE}/get_post_data/${synonym}`;
 }
 
 function getTagListURL() {
-  return `${RESOURCE_MANAGEMENT_HOST}/get_tag_list/`;
+  return `${RESOURCE_MANAGEMENT_ROUTE}/get_tag_list/`;
 }
 
 function getImageFullFilePathURL(fileName) {
-  return `${RESOURCE_MANAGEMENT_HOST}/get_full_file_path/${fileName}`;
+  return `${RESOURCE_MANAGEMENT_ROUTE}/get_full_file_path/${fileName}`;
 }
 
 const apiURLs = {
