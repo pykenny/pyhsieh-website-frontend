@@ -20,7 +20,7 @@ const parseArguments = (procArgv) => {
       'dev-port-script': {
         alias: 'j',
         describe:
-          'Port of Parcel development server for JavaScript content in development mode.'
+          'Port of Parcel development server for JavaScript content in development mode. '
           + 'This is not effective when running in production mode (NODE_ENV == "production").',
         type: 'number',
         nargs: 1,
@@ -29,7 +29,7 @@ const parseArguments = (procArgv) => {
       'dev-port-style': {
         alias: 'c',
         describe:
-          'Port of Parcel development server for CSS content in development mode.'
+          'Port of Parcel development server for CSS content in development mode. '
           + 'This is not effective when running in production mode (NODE_ENV == "production").',
         type: 'number',
         nargs: 1,
@@ -37,7 +37,7 @@ const parseArguments = (procArgv) => {
       },
       'parcel-options-script': {
         describe:
-          'Additional options used to initialize parcel development server for JavaScript content.'
+          'Additional options used to initialize parcel development server for JavaScript content. '
           + 'This is not effective when running in production mode (NODE_ENV == "production").',
         type: 'string',
         nargs: 1,
@@ -45,11 +45,19 @@ const parseArguments = (procArgv) => {
       },
       'parcel-options-style': {
         describe:
-          'Additional options used to initialize parcel development server for CSS content.'
+          'Additional options used to initialize parcel development server for CSS content. '
           + 'This is not effective when running in production mode (NODE_ENV == "production").',
         type: 'string',
         nargs: 1,
         default: '',
+      },
+      'local-prod-https': {
+        describe:
+          'Only effective in production mode (NODE_ENV == "production"). '
+          + 'By default, production server will not handle HTTPS. To run the server without aid from '
+          + 'services like Nginx or Apache, you will need to enable this option, and provide '
+          + 'key/cert paths in project ".env" file.',
+        type: 'boolean',
       },
     });
 

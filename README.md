@@ -44,5 +44,12 @@ Try get `node v12.19.0`, or higher, set up on the machine.
 4. (Required for now) `yarn build-static-pages`.
 5. Make sure resource management server is running and its host:port is in line with `BACKEND_RESOURCE_HOST` in environment settings.
 6. Run `yarn dev` to start development server. Check out `yarn dev --help` for possible options.
-7. Open the browser and enter `SITE_HOST:SERVER_PORT`. You should see the main page now.
-8. If you've build up some blog entries in the resource server, try accessing `SITE_HOST:SERVER_PORT/blog` as well!
+7. Open the browser and enter `SITE_HOST`. You should see the main page now.
+8. If you've build up some blog entries in the resource server, try accessing `SITE_HOST/blog` as well!
+
+### Prod Server (draft)
+
+1. Clone this repository.
+2. Under repo root, run `yarn boot-prod`.
+3. Do step 5. in the previous seciton.
+4. If you just want to try it out in development environment without reverse proxy's support nginx/apache/etc, `yarn start --local-prod-https` should suffice. In production settings, run `yarn start`.

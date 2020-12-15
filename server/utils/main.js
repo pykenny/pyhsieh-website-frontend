@@ -55,6 +55,7 @@ const run = async (argv) => {
     ? argv['parcel-options-script']
     : undefined;
   const parcelOptionsStyle = devMode ? argv['parcel-options-style'] : undefined;
+  const enableHttps = devMode || argv['local-prod-https'];
   const {
     IMAGE_DIR_PATH: imageDirPath,
     SERVER_PORT: serverPort,
@@ -160,23 +161,12 @@ const run = async (argv) => {
   server.set('views', VIEW_GLOB_TGT_DIR);
   server.set('view engine', 'pug');
   // Security headers
-  /*
-  {
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", ...acceptedHosts],
-        styleSrc: ["'self'", ...acceptedHosts],
-      },
-    },
-  }
-  */
   server.use(helmet());
   // JSON / URL support
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
 
-  if (devMode) {
+  if (enableHttps) {
     server.use(STATIC_ROUTE_SCRIPT, parcelScriptMiddleware);
     server.use(STATIC_ROUTE_STYLE, parcelStyleMiddleware);
     // Note: Right now only CSS file uses shared assets.
@@ -191,16 +181,9 @@ const run = async (argv) => {
   server.use('/', routerMain);
   server.use('/blog', routerBlog);
 
-  let sslKey;
-  let sslCert;
-  let mainServer;
-  if (devMode) {
-    sslKey = await promiseFs.readFile(sslKeyPath);
-    sslCert = await promiseFs.readFile(sslCertPath);
-    mainServer = https.createServer({ key: sslKey, cert: sslCert }, server);
-  } else {
-    mainServer = server;
-  }
+  const sslKey = await promiseFs.readFile(sslKeyPath);
+  const sslCert = await promiseFs.readFile(sslCertPath);
+  const mainServer = https.createServer({ key: sslKey, cert: sslCert }, server);
 
   const serverHandle = mainServer.listen(serverPort, () => {
     process.stdout.write(`Listening to port ${serverPort}...\n`);
