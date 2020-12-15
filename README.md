@@ -8,13 +8,13 @@ Repository for frontend server of personal website. Still under construction...
 
 ### Resource Management Backend
 
-➡️ Right (here)[https://github.com/pykenny/pyhsieh-website-backend].
+➡️ Right [here](https://github.com/pykenny/pyhsieh-website-backend).
 
 ### HTTPS Support
 
 The Dev server's running on HTTPS so you'll need a locally certified SSL key.
 
-There are tons of step-by-step recipes available online... but why not just trying out (mkcert)[https://github.com/FiloSottile/mkcert] to save your day, or call it a day earlier?
+There are tons of step-by-step recipes available online... but why not just trying out [mkcert](https://github.com/FiloSottile/mkcert) to save your day, or call it a day earlier?
 
 ### Environment Settings
 
