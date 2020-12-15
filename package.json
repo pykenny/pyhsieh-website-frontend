@@ -64,6 +64,10 @@
     "start": "NODE_ENV=\"production\" node ./server/server.js",
     "cleanup": "rm -rf .parcel-cache dist",
     "sync-templates": "mkdir -p ./dist/views &> /dev/null; cp -R ./src/views/* ./dist/views/",
-    "build": "NODE_ENV=\"development\" yarn cleanup && npx parcel build ./src/js/site/*/index.jsx && npx parcel build ./src/scss/site/*/style.scss && yarn sync-templates"
+    "build": "NODE_ENV=\"development\" yarn cleanup && npx parcel build ./src/js/site/*/index.jsx && npx parcel build ./src/scss/site/*/style.scss && yarn sync-templates",
+    "lint": "eslint --ext .js,jsx .",
+    "lint-fix": "eslint --fix --ext .js,jsx .",
+    "prettier-pass": "prettier --list-different --ignore-unknown --write src server",
+    "prettify": "yarn prettier-pass && yarn lint-fix"
   }
 }
