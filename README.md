@@ -21,7 +21,7 @@ There are tons of step-by-step recipes available online... but why not just tryi
 Create a `.env` text file under repo root. Fill in all the fields listed in the template below!
 
 ```text
-SITE_HOST="Your site host with HTTPS protocol. e.g., https://my-dev-site.com"
+SITE_HOST="Your site host with HTTPS protocol. e.g., https://my-site.com, or https://my-site-dev.com:1234 if 'my-site-dev.com' is actually alias of localhost, while 1234 equals SERVER_PORT settings"
 BACKEND_RESOURCE_HOST="Your backend resouce management host. e.g., http://localhost:8080"
 IMAGE_DIR_PATH="Path for where you store images for blog posts."
 SERVER_PORT="Port you'd like the dev server to run upon."
@@ -32,9 +32,11 @@ SSL_CERT_PATH="Path of SSL cert generated in previous step."
 
 ## Installation
 
-Try get `node v12.19.0` setup on the machine, or higher.
+### Node Runtime
 
-## Stack Dev Server up for Run
+Try get `node v12.19.0`, or higher, set up on the machine.
+
+### Stack Dev Server up for Run
 
 1. Clone this repository.
 2. Under repo root, run `yarn boot-dev` to install dependecies.
