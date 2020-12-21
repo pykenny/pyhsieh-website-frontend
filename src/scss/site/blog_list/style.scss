@@ -1,1 +1,84 @@
 @use '../../common/frames/blog_frame';
+
+.tag-filter-description {
+  font-family: 'Crimson Pro';
+  font-size: 1.25em;
+}
+
+.article-item-container {
+  padding: 12px 0;
+  border-bottom: 2px solid #6e3c00;
+  border-image: linear-gradient(
+      to right,
+      rgba(110, 60, 0, 1),
+      rgba(110, 60, 0, 0)
+    )
+    1;
+}
+
+.article-item-date {
+  font-family: 'Red Hat Display';
+  font-size: 1.15em;
+  margin-bottom: 8px;
+}
+
+.article-item-title {
+  font-size: 2.5em;
+  font-family: 'Vollkorn';
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+
+  .article-title-link {
+    text-decoration: none;
+    color: #000000;
+
+    &:hover {
+      color: #4c4c4c;
+    }
+  }
+}
+
+.article-item-tag-list {
+  display: flex;
+  align-items: flex-end;
+  font-family: 'Red Hat Display';
+
+  .article-item-tag-list-item {
+    margin-left: 4px;
+
+    &:not(:last-child):after {
+      content: '/';
+      margin-left: 4px;
+    }
+  }
+}
+
+.post-navigation-container {
+  display: flex;
+  font-family: 'Vollkorn';
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 1em;
+
+  .navigation-option .navigation-option-link {
+    &:link,
+    &:visited {
+      color: #011f4b;
+    }
+
+    &:focus,
+    &:hover {
+      color: #005b96;
+    }
+  }
+
+  .navigation-option.disabled .navigation-option-link {
+    color: #c3c3c3;
+  }
+
+  .navigation-option.prev {
+    margin-left: auto;
+    margin-right: 0;
+  }
+}

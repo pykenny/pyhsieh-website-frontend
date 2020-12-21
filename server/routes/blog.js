@@ -19,7 +19,10 @@ router.get(
   blogPostListByPageAndTaagDefaultMiddleware,
   blogPostListByPageAndTag,
 );
-router.get('/:tag/:page([1-9][0-9]{0,})/', blogPostListByPageAndTag);
+router.get(
+  '/list-by-tag/:tag/:page([1-9][0-9]{0,})/',
+  blogPostListByPageAndTag,
+);
 router.get('/article/:synonym', blogPost);
 
 module.exports = router;

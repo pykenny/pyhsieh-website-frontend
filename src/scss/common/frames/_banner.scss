@@ -28,9 +28,13 @@ $niwa-item-fill-color: orange;
     font-family: 'Vollkorn';
     font-style: italic;
     font-weight: 500;
-    color: white;
     letter-spacing: 0.05em;
     font-size: 3em;
+
+    .blog-banner-home-link {
+      text-decoration: none;
+      color: #ffffff;
+    }
   }
 }
 

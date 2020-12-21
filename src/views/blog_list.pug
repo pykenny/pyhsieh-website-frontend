@@ -8,12 +8,13 @@ block reactScripts
 
 mixin article(title, synonym, timestamp, tags)
   .article-item-container
-    .article-item-title
-      a(href=`${F.createArticleURL(synonym)}`)= title
     .article-item-date.timestamp(timestamp=timestamp)
-    .article-item-tag-list
+    .article-item-title
+      a.article-title-link(href=`${F.createArticleURL(synonym)}`)= title
+    .article-item-tag-list= "Tags: "
       each tag in tags
-        span.article-item-tag-list-item= tag
+        span.article-item-tag-list-item
+          a.article-item-tag-list-item-link= tag
 
 mixin tagItem(tag_name)
   .tag-item
@@ -22,7 +23,7 @@ mixin tagItem(tag_name)
 block contentViewMain
   .post-list-container
     if postsData.tag
-      p.tag-filter-description Articles with tag #{postsData.tag}:
+      p.tag-filter-description → Articles with tag "#{postsData.tag}":
 
     .post-list-article-list
       each articleItem in postsData.posts
