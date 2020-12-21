@@ -1,7 +1,8 @@
 mixin tagItem(tag_name)
-  .tag-item
-    a.tag-link= tag_name
+  span.tag-item
+    a.tag-link(href=`${F.createTagDefaultURL(tag_name)}`)= tag_name
 
+.tag-title Tags
 .tag-list
   each tag in tagList.data
     +tagItem(tag)

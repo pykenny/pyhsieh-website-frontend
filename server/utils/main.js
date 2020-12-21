@@ -31,7 +31,7 @@ const PROD_STATIC_PATH = Path.join(__dirname, '../../dist');
 const STATIC_ROOT_ROUTE = '/static';
 const SCRIPTS_EXTS = ['js'];
 const STYLES_EXTS = ['css'];
-const SHARED_ASSET_EXTS = ['ttf', 'eot'];
+const SHARED_ASSET_EXTS = ['ttf', 'eot', 'jpg'];
 const STATIC_ROUTE_SCRIPT = `${STATIC_ROOT_ROUTE}/:view/[^/]+.(${SCRIPTS_EXTS.join(
   '|',
 )})(.map)?`;
@@ -72,9 +72,9 @@ const run = async (argv) => {
 
   if (devMode) {
     process.env.FORCE_COLOR = 2; // Enable color tts
-    // Note: HRM uses Websocket connection, which means running dev server
-    //       requires Parcel servers to run in HTTPS mode as well. To reduce
-    //       additional settings I decide to disable HRM on Parcel servers.
+    // Note: - HRM uses Websocket connection, which means running dev server
+    //         requires Parcel servers to run in HTTPS mode as well. To reduce
+    //         additional settings I decide to disable HRM on Parcel servers.
     parcelServerScript = exec(
       `npx parcel "${SCRIPT_TARGET_GLOB}" --port ${devPortScript} --public-url ${STATIC_ROOT_ROUTE} ${parcelOptionsScript} --no-hmr ${SCRIPT_TARGET_GLOB}`,
       { detached: true },

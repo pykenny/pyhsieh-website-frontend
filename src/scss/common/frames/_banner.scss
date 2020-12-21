@@ -1,0 +1,122 @@
+@use '../fonts/fonts';
+
+// Garden polygon settings
+$niwa-item-size-normal: 40px;
+$niwa-item-line-weight-normal: 4px;
+$sqrt-one-third: 0.5774;
+$sqrt-three: 1.732;
+$shikaku-shrink: 0.95;
+
+$niwa-item-edge-color: black;
+$niwa-item-fill-color: orange;
+
+.blog-banner-container {
+  display: flex;
+}
+
+.blog-banner-background {
+  position: relative;
+  background-image: url('../../../images/banner_garden.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 200px;
+
+  .blog-banner-title {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    font-family: 'Vollkorn';
+    font-style: italic;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.05em;
+    font-size: 3em;
+  }
+}
+
+.blog-banner-side-garden {
+  display: flex;
+  align-items: flex-end;
+  background: #322008;
+  background: linear-gradient(
+    115deg,
+    #150b02 0%,
+    #a2b2e2 10%,
+    #8596af 25%,
+    #4a5e7a 50%,
+    #3e2c1b 75%,
+    #322008 100%
+  );
+
+  .blog-banner-polygon-niwa {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 14px 14px;
+    & > * {
+      box-sizing: border-box;
+    }
+  }
+}
+
+// A simple circle.
+.maru {
+  width: $niwa-item-size-normal;
+  height: $niwa-item-size-normal;
+  border-style: solid;
+  border-radius: ($niwa-item-size-normal / 2);
+  border-width: $niwa-item-line-weight-normal;
+  border-color: $niwa-item-edge-color;
+  background-color: $niwa-item-fill-color;
+}
+
+// A long-lived border trick for generating triangle.
+// However it doesn't have transparent background so probably will
+// need to figure out some other way to implement it.
+.sankaku {
+  position: relative;
+  width: 0;
+  border-bottom: solid $niwa-item-size-normal $niwa-item-edge-color;
+  border-right: solid ($niwa-item-size-normal * $sqrt-one-third) transparent;
+  border-left: solid ($niwa-item-size-normal * $sqrt-one-third) transparent;
+
+  .sankaku-hollow {
+    position: absolute;
+    width: 0;
+    top: $niwa-item-line-weight-normal * 2;
+    left: -(($niwa-item-size-normal * $sqrt-one-third) -
+          ($niwa-item-line-weight-normal * $sqrt-three));
+    border-bottom: solid
+      ($niwa-item-size-normal - ($niwa-item-line-weight-normal * 3))
+      $niwa-item-fill-color;
+    border-right: solid
+      (
+        ($niwa-item-size-normal * $sqrt-one-third) -
+          ($niwa-item-line-weight-normal * $sqrt-three)
+      )
+      transparent;
+    border-left: solid
+      (
+        ($niwa-item-size-normal * $sqrt-one-third) -
+          ($niwa-item-line-weight-normal * $sqrt-three)
+      )
+      transparent;
+  }
+}
+
+// We need to shrink the square a little bit to make all the shapes look more
+// balanced in size.
+.shikaku {
+  width: (
+      ($niwa-item-size-normal - (2 * $niwa-item-line-weight-normal)) *
+        $shikaku-shrink
+    ) + (2 * $niwa-item-line-weight-normal);
+  height: (
+      ($niwa-item-size-normal - (2 * $niwa-item-line-weight-normal)) *
+        $shikaku-shrink
+    ) + (2 * $niwa-item-line-weight-normal);
+  border-width: $niwa-item-line-weight-normal;
+  border-color: $niwa-item-edge-color;
+  background-color: $niwa-item-fill-color;
+  border-style: solid;
+  margin-left: $niwa-item-line-weight-normal;
+}

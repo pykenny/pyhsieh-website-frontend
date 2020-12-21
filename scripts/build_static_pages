@@ -29,7 +29,7 @@ async function run() {
     process.stdout.write(`Processing templte ${filename}...\n`);
     const rendered = pug.renderFile(
       fileFullPath,
-      generateTemplateLocals({ filename: fileFullPath }),
+      generateTemplateLocals({ filename: fileFullPath })
     );
     try {
       await promiseFs.writeFile(targetPath, rendered);

@@ -9,7 +9,7 @@ function LocalizedTimestamp(props) {
 }
 
 LocalizedTimestamp.propTypes = {
-  timestamp: PropTypes.bool.isRequired,
+  timestamp: PropTypes.string.isRequired,
 };
 
 export default LocalizedTimestamp;

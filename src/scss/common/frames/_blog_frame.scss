@@ -1,9 +1,13 @@
 @use '../fonts/fonts';
+@use './banner';
+@use './sidebar';
+@use './footer';
 @use '../../../../node_modules/purecss/build/base.css';
 @use '../../../../node_modules/highlight.js/scss/agate.scss';
 
 body {
   width: 100%;
+  background-color: #ffedab;
 }
 
 .page-top-container {
@@ -14,6 +18,7 @@ body {
     'banner banner'
     'content-view sidebar'
     'footer footer';
+  grid-template-columns: 3fr 1fr;
   justify-content: stretch;
   align-content: start;
 
@@ -28,10 +33,18 @@ body {
 
 .content-view {
   grid-area: content-view;
+  margin: 0.75em;
+  padding: 1.25em;
+  border-radius: 8px;
+  background-color: #fffff0;
 }
 
 .sidebar {
   grid-area: sidebar;
+  margin: 0.75em 0.75em 0.75em 0;
+  padding: 1.25em;
+  border-radius: 8px;
+  background-color: #fffff0;
 }
 
 .footer {

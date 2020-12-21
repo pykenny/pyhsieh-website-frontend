@@ -64,7 +64,7 @@
     "start": "NODE_ENV=\"production\" node ./server/server.js",
     "cleanup": "rm -rf .parcel-cache dist",
     "sync-templates": "mkdir -p ./dist/views &> /dev/null; cp -R ./src/views/* ./dist/views/",
-    "build-static-pages": "scripts/build_static_pages.js",
+    "build-static-pages": "scripts/build_static_pages",
     "build": "NODE_ENV=\"development\" yarn cleanup && npx parcel build ./src/js/site/*/index.jsx && npx parcel build ./src/scss/site/*/style.scss && yarn sync-templates && yarn build-static-pages",
     "lint": "eslint --ext .js,jsx .",
     "lint-fix": "eslint --fix --ext .js,jsx .",

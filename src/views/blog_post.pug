@@ -9,14 +9,13 @@ block reactScripts
 mixin articleTitle(title, timestamp, tags)
   .article-title-container
     .article-title-title= title
-    .article-title-date.timestamp(timestamp=timestamp)
-    .article-title-tag-list
-      each tag in tags
-        span.article-title-tag-list-item= tag
-
-mixin tagItem(tag_name)
-  .tag-item
-    a.tag-link(href=`${F.createTagDefaultURL(tag_name)}`)= tag_name
+    .article-title-meta
+      .article-title-date.timestamp(timestamp=timestamp)
+      .article-title-tag-list
+        each tag in tags
+          span.article-title-tag-list-item
+            a.tag-link(href=`${F.createTagDefaultURL(tag)}`)= tag
+    hr.title-separator
 
 block contentViewMain
   +articleTitle(postData.title, postData.timestamp, postData.tags)
