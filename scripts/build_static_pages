@@ -8,7 +8,7 @@ const { generateTemplateLocals } = require('../server/views/utils');
 
 initServerEnv();
 
-const SOURCE_TEMPLATES_DIR = Path.join(__dirname, '../src/views');
+const SOURCE_TEMPLATES_DIR = Path.join(__dirname, '../src/views/static');
 const SOURCE_TEMPLATES_NAME = ['site_top'];
 
 const TARGET_DIR_ROOT = Path.join(__dirname, '../dist');

@@ -23,8 +23,8 @@ $niwa-item-fill-color: orange;
 
   .blog-banner-title {
     position: absolute;
-    left: 14px;
-    bottom: 14px;
+    left: 16px;
+    bottom: 28px;
     font-family: 'Vollkorn';
     font-style: italic;
     font-weight: 500;
@@ -35,6 +35,17 @@ $niwa-item-fill-color: orange;
       text-decoration: none;
       color: #ffffff;
     }
+  }
+
+  .blog-banner-subtitle {
+    left: 18px;
+    bottom: 8px;
+    position: absolute;
+    font-family: 'Passion One';
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 1.25em;
+    letter-spacing: 0.05em;
   }
 }
 

@@ -14,7 +14,7 @@ const routerMain = require('../routes/main');
 const routerBlog = require('../routes/blog');
 
 /* File paths used in dev mode */
-const VIEW_GLOB_SRC = Path.join(__dirname, '../../src/views/*.pug');
+const VIEW_GLOB_SRC = Path.join(__dirname, '../../src/views/template/*.pug');
 const VIEW_GLOB_TGT_DIR = Path.join(__dirname, '../../dist/views/');
 const SCRIPT_TARGET_GLOB = Path.join(
   __dirname,
