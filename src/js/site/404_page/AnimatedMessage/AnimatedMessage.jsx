@@ -1,7 +1,7 @@
 import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import gsap from 'gsap';
-import { sha1 } from 'hash.js';
+import hashSum from 'hash-sum';
 
 const PARAGRAPH_KEY_PREFIX = 'site-404-content-paragraph';
 
@@ -24,7 +24,7 @@ class AnimatedMessage extends React.Component {
   render() {
     const { message: rawMessage } = this.props;
     const messages = rawMessage.split('\n').map((paragraph) => {
-      const hash = sha1().update(paragraph).digest('hex');
+      const hash = hashSum(paragraph);
       return (
         <div
           className="site-404-content-paragraph"

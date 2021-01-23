@@ -18,7 +18,7 @@
     "fast-glob": "^3.2.4",
     "feather-icons": "^4.28.0",
     "gsap": "^3.5.1",
-    "hash.js": "^1.1.7",
+    "hash-sum": "^2.0.0",
     "helmet": "^4.2.0",
     "highlight.js": "^10.4.0",
     "html-react-parser": "^1.1.1",
