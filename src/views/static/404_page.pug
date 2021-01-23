@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    meta(http-equiv='X-UA-Compatible')
+    meta(charset='utf-8')
+    link(rel='stylesheet', href=`${F.createStaticStyleURL("404_page")}`)
+  body
+    .page-top-container.single-column-content
+      .banner
+        include ../template/banner.pug
+      .content-view
+        .error-message-container
+          #error-page-title-container.error-page-title-container
+          #error-page-content-container.error-page-content-container
+          .error-page-background-credit= "Credit: "
+            a.error-page-background-credit-source(
+              href='https://unsplash.com/photos/T8vNEq4IRqM'
+            ) Unsplash
+      .footer
+        include ../template/footer.pug
+
+    script(src=`${F.createStaticScriptURL("404_page")}`)

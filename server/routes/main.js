@@ -1,9 +1,10 @@
 const { Router } = require('express');
 
-const { mainPage } = require('../views/main');
+const { blogPostListByPage, blogTopPageMiddleware } = require('../views/blog');
 
 const router = Router();
 
-router.get('/', mainPage);
+// Direct to blog top for now
+router.get('/', blogTopPageMiddleware, blogPostListByPage);
 
 module.exports = router;

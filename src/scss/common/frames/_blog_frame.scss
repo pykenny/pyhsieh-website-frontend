@@ -13,7 +13,6 @@ body {
 .page-top-container {
   height: 100%;
   display: grid;
-  // grid-template-rows: $top-banner-height 1fr;
   grid-template-areas:
     'banner banner'
     'content-view sidebar'
@@ -22,6 +21,14 @@ body {
   justify-content: stretch;
   align-content: start;
 
+  &.single-column-content {
+    grid-template-areas:
+      'banner'
+      'content-view'
+      'footer';
+    grid-template-columns: none;
+  }
+
   & > * {
     box-sizing: border-box;
   }
@@ -29,6 +36,7 @@ body {
 
 .banner {
   grid-area: banner;
+  position: relative;
 }
 
 .content-view {

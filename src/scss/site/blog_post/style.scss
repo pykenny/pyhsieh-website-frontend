@@ -41,6 +41,7 @@
     background-color: #7fffd4;
 
     .tag-link {
+      text-decoration: none;
       color: #222f9a;
       background-image: linear-gradient(
         to right top,
@@ -108,6 +109,8 @@
   font-weight: 600;
 
   .navigation-option .navigation-option-link {
+    text-decoration: none;
+
     &:link,
     &:visited {
       color: #011f4b;

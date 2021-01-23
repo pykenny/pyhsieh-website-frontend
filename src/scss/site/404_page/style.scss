@@ -1,0 +1,45 @@
+@use '../../common/frames/blog_frame';
+
+.content-view {
+  background-image: url('../../../images/404_background.jpg');
+  background-size: cover;
+}
+
+.error-message-container {
+  position: relative;
+  padding: 2em;
+  min-height: 500px;
+}
+
+.error-page-title-container {
+  color: white;
+  font-family: 'Red Hat Display';
+  font-size: 4em;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.error-page-content-container {
+  padding: 2em 2em 2em 0;
+  color: white;
+  font-family: 'Crimson Pro';
+  font-size: 1.5em;
+  line-height: 1.25;
+}
+
+.site-404-content-paragraph:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.error-page-background-credit {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  color: white;
+  font-family: 'Vollkorn';
+
+  .error-page-background-credit-source {
+    color: white;
+    font-style: italic;
+  }
+}

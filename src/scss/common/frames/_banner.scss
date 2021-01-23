@@ -1,5 +1,12 @@
 @use '../fonts/fonts';
 
+$banner-height: 200px;
+$switch-icon-height: 32px;
+$switch-icon-margin: 12px;
+$bussiness-card-stripe-width: 24px;
+$bussiness-card-right-stripe-width: $switch-icon-height + $switch-icon-margin *
+  2;
+
 // Garden polygon settings
 $niwa-item-size-normal: 40px;
 $niwa-item-line-weight-normal: 4px;
@@ -10,16 +17,140 @@ $shikaku-shrink: 0.95;
 $niwa-item-edge-color: black;
 $niwa-item-fill-color: orange;
 
-.blog-banner-container {
-  display: flex;
+.blog-banner-bussiness-card-switch {
+  position: absolute;
+  top: $switch-icon-margin;
+  right: $switch-icon-margin;
+  z-index: 1;
+  line-height: $switch-icon-height;
+  height: $switch-icon-height;
+  width: $switch-icon-height;
+  border-radius: 4px;
+  color: #ffff7f;
+
+  &:hover {
+    background-color: #8dc9db;
+    background-color: rgba(141, 201, 219, 0.5);
+    color: #ffffd2;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
+.blog-banner-bussiness-card-intro {
+  position: absolute;
+  z-index: -1;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 0 0 0 $bussiness-card-stripe-width;
+  padding: 0;
+  padding-right: $bussiness-card-right-stripe-width + 2 *
+    $bussiness-card-stripe-width;
+  border-left-color: #6f9ad4;
+  background: linear-gradient(
+    to left,
+    #754e46,
+    #754e46 $bussiness-card-right-stripe-width,
+    #f9f2d7 $bussiness-card-right-stripe-width,
+    #f9f2d7 $bussiness-card-right-stripe-width + $bussiness-card-stripe-width,
+    #ddffff $bussiness-card-right-stripe-width + $bussiness-card-stripe-width,
+    #ddffff $bussiness-card-right-stripe-width + $bussiness-card-stripe-width *
+      2,
+    #c4e9ff $bussiness-card-right-stripe-width + $bussiness-card-stripe-width *
+      2,
+    #c4e9ff
+  );
+
+  // Overwrite positioning when React wrap it up
+  .blog-banner-bussiness-card-content {
+    position: static;
+  }
+}
+
+.blog-banner-bussiness-card-content {
+  position: absolute;
+  z-index: -1;
+  padding: 20px 12px;
+}
+
+.blog-banner-bussiness-card-title {
+  font-family: 'Red Hat Display';
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #361103;
+}
+
+.blog-banner-bussiness-card-description {
+  font-family: 'Crimson Pro';
+  font-size: 1.15em;
+  margin-bottom: 8px;
+  color: #361103;
+}
+
+.blog-banner-bussiness-card-media-list {
+  display: flex;
+  align-items: flex-end;
+
+  a {
+    text-decoration: none;
+  }
+
+  .blog-banner-bussiness-card-media-item {
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+    padding: 8px;
+    border-radius: 28px;
+    margin-right: 12px;
+    color: #b76217;
+    background-color: #f9f2d7;
+
+    &:hover {
+      color: #f7ee40;
+      background-color: #754e46;
+    }
+  }
+}
+
+.blog-banner-bussiness-card-source-links {
+  display: flex;
+  align-items: center;
+  font-family: 'Passion One';
+  letter-spacing: 1px;
+  font-size: 18px;
+  margin-left: 24px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .blog-banner-bussiness-card-source-link {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 1px 4px;
+    border-radius: 2px;
+    background-color: #6f9ad4;
+    color: #f9f2d7;
+
+    &:hover {
+      color: #f7ee40;
+      background-color: #754e46;
+    }
+  }
+}
+
+// Note: Background color is required to cover namecard behind.
 .blog-banner-background {
   position: relative;
+  background-color: #ffedab;
   background-image: url('../../../images/banner_garden.jpg');
   background-size: cover;
   width: 100%;
-  height: 200px;
+  height: $banner-height;
 
   .blog-banner-title {
     position: absolute;
