@@ -3,10 +3,10 @@
 @use './sidebar';
 @use './footer';
 @use '../../../../node_modules/purecss/build/base.css';
-@use '../../../../node_modules/highlight.js/scss/agate.scss';
 
 body {
   width: 100%;
+  min-width: 640px;
   background-color: #ffedab;
 }
 
@@ -41,6 +41,7 @@ body {
 
 .content-view {
   grid-area: content-view;
+  min-width: 0;
   margin: 0.75em;
   padding: 1.25em;
   border-radius: 8px;
@@ -49,6 +50,7 @@ body {
 
 .sidebar {
   grid-area: sidebar;
+  min-width: 0;
   margin: 0.75em 0.75em 0.75em 0;
   padding: 1.25em;
   border-radius: 8px;

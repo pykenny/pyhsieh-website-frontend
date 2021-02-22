@@ -5,6 +5,11 @@
   font-weight: 600;
 }
 
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .tag-item {
   display: inline;
   font-family: 'Red Hat Display';

@@ -23,10 +23,12 @@
 .article-title-date {
   font-family: 'Red Hat Display';
   font-size: 1.15em;
+  min-width: 6em;
 }
 
 .article-title-tag-list {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   margin-left: 12px;
 
@@ -34,7 +36,7 @@
     display: block;
     font-family: 'Red Hat Display';
     padding: 4px;
-    margin: 0 4px;
+    margin: 2px 4px;
     border-radius: 4px;
     font-size: 1em;
     line-height: 1em;

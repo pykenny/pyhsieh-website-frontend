@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const promiseFs = require('fs').promises;
 const Path = require('path');
 

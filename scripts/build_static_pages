@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// const promiseFs = require('fs').promises;
 const Path = require('path');
 
 const fastGlob = require('fast-glob');
@@ -11,7 +10,7 @@ initServerEnv();
 
 const SOURCE_TEMPLATES_GLOB = Path.join(__dirname, '../src/views/static/*.pug');
 
-async function run() {
+(async () => {
   (await fastGlob(SOURCE_TEMPLATES_GLOB, { onlyFiles: true })).forEach(
     async (filename) => {
       try {
@@ -21,6 +20,4 @@ async function run() {
       }
     }
   );
-}
-
-run();
+})();
