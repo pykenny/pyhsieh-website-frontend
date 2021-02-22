@@ -1,5 +1,6 @@
 @use '../../common/frames/blog_frame';
 @use '../../common/frames/markdown';
+@use '../../common/frames/snippet_toolbar';
 
 .markdown {
   @include markdown.markdown;
