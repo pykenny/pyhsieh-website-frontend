@@ -1,10 +1,15 @@
 extends blog_frame.pug
 
 block headContent
-  link(rel='stylesheet', href=`${F.createStaticStyleURL("blog_post")}`)
+  link(
+    rel='stylesheet',
+    type='text/css',
+    href=`${F.createStaticStyleURL("blog_post")}`
+  )
+  title= postData.title
 
 block reactScripts
-  script(src=`${F.createStaticScriptURL("blog_post")}`)
+  script(type='text/javascript', src=`${F.createStaticScriptURL("blog_post")}`)
 
 mixin articleTitle(title, timestamp, tags)
   .article-title-container

@@ -1,10 +1,14 @@
 extends blog_frame.pug
 
 block headContent
-  link(rel='stylesheet', href=`${F.createStaticStyleURL("blog_list")}`)
+  link(
+    rel='stylesheet',
+    type='text/css',
+    href=`${F.createStaticStyleURL("blog_list")}`
+  )
 
 block reactScripts
-  script(src=`${F.createStaticScriptURL("blog_list")}`)
+  script(type='text/javascript', src=`${F.createStaticScriptURL("blog_list")}`)
 
 mixin article(title, synonym, timestamp, tags)
   .article-item-container
