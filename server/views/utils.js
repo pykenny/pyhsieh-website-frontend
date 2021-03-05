@@ -1,5 +1,22 @@
 // Functions used in template rendering.
+const Path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
+
+const fastGlob = require('fast-glob');
+
 const { SITE_HOST, NODE_ENV } = process.env;
+
+const cipher = crypto.createHash('md5');
+const globPattern = Path.join(__dirname, '../../dist/**/*.(js|css)');
+fastGlob
+  .sync(globPattern)
+  .sort()
+  .forEach((filepath) => {
+    cipher.update(fs.readFileSync(filepath));
+  });
+const contentHash = `v=${cipher.digest('hex')}`;
+
 const DEFAULT_SCRIPT_NAME = 'index.js';
 const DEFAULT_STYLE_NAME = 'style.css';
 const HOST = NODE_ENV === 'development' ? SITE_HOST : SITE_HOST || '';
@@ -11,8 +28,8 @@ const TEMPLATE_FUNCTIONS = {
   createTagListURL: (tag) => `${HOST}/blog/list-by-tag/${tag}`,
   createTagDefaultURL: (tag) => `${HOST}/blog/list-by-tag/${tag}`,
   createArticleURL: (synonym) => `${HOST}/blog/article/${synonym}`,
-  createStaticScriptURL: (viewname, filename = DEFAULT_SCRIPT_NAME) => `${HOST}/static/${viewname}/${filename}`,
-  createStaticStyleURL: (viewname, filename = DEFAULT_STYLE_NAME) => `${HOST}/static/${viewname}/${filename}`,
+  createStaticScriptURL: (viewname, filename = DEFAULT_SCRIPT_NAME) => `${HOST}/static/${viewname}/${filename}?${contentHash}`,
+  createStaticStyleURL: (viewname, filename = DEFAULT_STYLE_NAME) => `${HOST}/static/${viewname}/${filename}?${contentHash}`,
 };
 
 const EXTERNAL_LINKS = JSON.parse(process.env.EXTERNAL_LINKS || '{}');

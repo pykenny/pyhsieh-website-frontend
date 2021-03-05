@@ -18,6 +18,7 @@ const routerMain = require('../routes/main');
 const routerBlog = require('../routes/blog');
 const routerError = require('../routes/error');
 const { buildStaticPage, removeStaticPage } = require('./static_pages');
+const createLogger = require('./logging');
 
 /* File paths used in dev mode */
 const VIEW_TEMPLATE_GLOB_SRC = Path.join(
@@ -75,6 +76,9 @@ const run = async (argv) => {
     : undefined;
   const parcelOptionsStyle = devMode ? argv['parcel-options-style'] : undefined;
   const enableHttps = devMode || argv['local-prod-https'];
+  const logPath = argv['log-path'];
+  const logBaseFilename = argv['log-base-filename'];
+  const logRotateSettings = argv['rotate-settings'];
   const {
     IMAGE_DIR_PATH: imageDirPath,
     SERVER_PORT: serverPort,
@@ -276,6 +280,9 @@ const run = async (argv) => {
   // JSON / URL support
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: true }));
+
+  // Register logger
+  server.use(createLogger(logBaseFilename, logPath, logRotateSettings));
 
   const staticAssetHandler = express.static(PROD_STATIC_PATH);
   if (devMode) {

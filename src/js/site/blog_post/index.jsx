@@ -17,7 +17,6 @@ setIcons();
 
 [...document.getElementsByTagName('pre')].forEach((elem) => {
   const filename = elem.getAttribute('file-name');
-  // const language = elem.getAttribute('language');
   const codeData = elem.outerHTML;
   const data = elem.getElementsByTagName('code')[0].textContent;
   const snippetElem = document.createElement('div');

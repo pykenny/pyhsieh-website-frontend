@@ -59,7 +59,33 @@ const parseArguments = (procArgv) => {
           + 'key/cert paths in project ".env" file.',
         type: 'boolean',
       },
-    });
+      'log-path': {
+        describe:
+          'Base directory for storing log files. '
+          + 'If not specified, all log information will be directed to standard output.',
+        nargs: 1,
+        type: 'string',
+      },
+      'log-base-filename': {
+        describe:
+          'If --log-path is specified, it will be the base name for log files',
+        nargs: 1,
+        type: 'string',
+        default: 'website_server',
+      },
+    })
+    .config(
+      // Default logging settings (daily and kept for 60 days)
+      {
+        'rotate-settings': {
+          compress: false,
+          mode: 0o660,
+          interval: '1d',
+          maxFiles: 60,
+        },
+      },
+      "Settings for rotating-file-stream's stream manager.",
+    );
 
   return parsedArgs;
 };
