@@ -71,7 +71,7 @@
     "**/*.{js,jsx}": "eslint --fix"
   },
   "scripts": {
-    "boot-dev": "yarn install",
+    "boot-dev": "yarn install && yarn sync-templates && yarn build-static-pages && yarn sync-favicons",
     "boot-prod": "yarn install && yarn build && yarn install --production",
     "dev": "NODE_ENV=\"development\" node ./server/server.js",
     "start": "NODE_ENV=\"production\" node ./server/server.js",
