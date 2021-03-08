@@ -6,7 +6,7 @@ block headContent
     type='text/css',
     href=`${F.createStaticStyleURL("blog_post")}`
   )
-  title= postData.title
+  title= F.createArticleTitle(postData.title)
 
 block reactScripts
   script(type='text/javascript', src=`${F.createStaticScriptURL("blog_post")}`)

@@ -17,6 +17,9 @@ fastGlob
   });
 const contentHash = `v=${cipher.digest('hex')}`;
 
+// TODO: Decide whether to keep them here, or set them from other config files.
+const SITE_NAME = "Layperson's Notes";
+
 const DEFAULT_SCRIPT_NAME = 'index.js';
 const DEFAULT_STYLE_NAME = 'style.css';
 const HOST = NODE_ENV === 'development' ? SITE_HOST : SITE_HOST || '';
@@ -30,6 +33,9 @@ const TEMPLATE_FUNCTIONS = {
   createArticleURL: (synonym) => `${HOST}/blog/article/${synonym}`,
   createStaticScriptURL: (viewname, filename = DEFAULT_SCRIPT_NAME) => `${HOST}/static/${viewname}/${filename}?${contentHash}`,
   createStaticStyleURL: (viewname, filename = DEFAULT_STYLE_NAME) => `${HOST}/static/${viewname}/${filename}?${contentHash}`,
+  createArticleListTitle: () => `${SITE_NAME}`,
+  createTagArticleListTitle: (tag) => `${tag} - ${SITE_NAME}`,
+  createArticleTitle: (title) => `${title} - ${SITE_NAME}`,
 };
 
 const EXTERNAL_LINKS = JSON.parse(process.env.EXTERNAL_LINKS || '{}');
@@ -37,6 +43,7 @@ const EXTERNAL_LINKS = JSON.parse(process.env.EXTERNAL_LINKS || '{}');
 const TEMPLATE_CONSTANTS = {
   siteTopURL: `${HOST}/`,
   blogTopURL: `${HOST}/blog`,
+  siteName: SITE_NAME,
   ...EXTERNAL_LINKS,
 };
 

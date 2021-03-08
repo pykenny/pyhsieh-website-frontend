@@ -6,6 +6,10 @@ block headContent
     type='text/css',
     href=`${F.createStaticStyleURL("blog_list")}`
   )
+  if postsData.tag
+    title= F.createTagArticleListTitle(postsData.tag)
+  else
+    title= F.createArticleListTitle()
 
 block reactScripts
   script(type='text/javascript', src=`${F.createStaticScriptURL("blog_list")}`)
