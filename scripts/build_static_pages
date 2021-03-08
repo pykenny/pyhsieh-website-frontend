@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+const Path = require('path');
+
+const fastGlob = require('fast-glob');
+require('../server/utils/environment')();
+
+const { buildStaticPage } = require('../server/utils/static_pages');
+
+const SOURCE_TEMPLATES_GLOB = Path.join(__dirname, '../src/views/static/*.pug');
+
+(async () => {
+  (await fastGlob(SOURCE_TEMPLATES_GLOB, { onlyFiles: true })).forEach(
+    async (filename) => {
+      try {
+        await buildStaticPage(filename);
+      } catch (error) {
+        process.stderr.write(`Error on processing template:\n${error}`);
+      }
+    }
+  );
+})();

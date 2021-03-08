@@ -1,0 +1,268 @@
+@use '../fonts/fonts';
+
+$banner-height: 200px;
+$switch-icon-height: 32px;
+$switch-icon-margin: 12px;
+$bussiness-card-stripe-width: 24px;
+$bussiness-card-right-stripe-width: $switch-icon-height + $switch-icon-margin *
+  2;
+
+// Garden polygon settings
+$niwa-item-size-normal: 40px;
+$niwa-item-line-weight-normal: 4px;
+$sqrt-one-third: 0.5774;
+$sqrt-three: 1.732;
+$shikaku-shrink: 0.95;
+
+$niwa-item-edge-color: black;
+$niwa-item-fill-color: orange;
+
+.blog-banner-bussiness-card-switch {
+  position: absolute;
+  top: $switch-icon-margin;
+  right: $switch-icon-margin;
+  z-index: 1;
+  line-height: $switch-icon-height;
+  height: $switch-icon-height;
+  width: $switch-icon-height;
+  border-radius: 4px;
+  color: #ffff7f;
+
+  &:hover {
+    background-color: #8dc9db;
+    background-color: rgba(141, 201, 219, 0.5);
+    color: #ffffd2;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.blog-banner-bussiness-card-intro {
+  position: absolute;
+  z-index: -1;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 0 0 0 $bussiness-card-stripe-width;
+  padding: 0;
+  padding-right: $bussiness-card-right-stripe-width + 2 *
+    $bussiness-card-stripe-width;
+  border-left-color: #6f9ad4;
+  background: linear-gradient(
+    to left,
+    #754e46,
+    #754e46 $bussiness-card-right-stripe-width,
+    #f9f2d7 $bussiness-card-right-stripe-width,
+    #f9f2d7 $bussiness-card-right-stripe-width + $bussiness-card-stripe-width,
+    #ddffff $bussiness-card-right-stripe-width + $bussiness-card-stripe-width,
+    #ddffff $bussiness-card-right-stripe-width + $bussiness-card-stripe-width *
+      2,
+    #c4e9ff $bussiness-card-right-stripe-width + $bussiness-card-stripe-width *
+      2,
+    #c4e9ff
+  );
+
+  // Overwrite positioning when React wrap it up
+  .blog-banner-bussiness-card-content {
+    position: static;
+  }
+}
+
+.blog-banner-bussiness-card-content {
+  position: absolute;
+  z-index: -1;
+  padding: 20px 12px;
+}
+
+.blog-banner-bussiness-card-title {
+  font-family: 'Red Hat Display';
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #361103;
+}
+
+.blog-banner-bussiness-card-description {
+  font-family: 'Crimson Pro';
+  font-size: 1.15em;
+  margin-bottom: 8px;
+  color: #361103;
+}
+
+.blog-banner-bussiness-card-media-list {
+  display: flex;
+  align-items: flex-end;
+
+  a {
+    text-decoration: none;
+  }
+
+  .blog-banner-bussiness-card-media-item {
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+    padding: 8px;
+    border-radius: 28px;
+    margin-right: 12px;
+    color: #b76217;
+    background-color: #f9f2d7;
+
+    &:hover {
+      color: #f7ee40;
+      background-color: #754e46;
+    }
+  }
+}
+
+.blog-banner-bussiness-card-source-links {
+  display: flex;
+  align-items: center;
+  font-family: 'Passion One';
+  letter-spacing: 1px;
+  font-size: 18px;
+  margin-left: 24px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .blog-banner-bussiness-card-source-link {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 1px 4px;
+    border-radius: 2px;
+    background-color: #6f9ad4;
+    color: #f9f2d7;
+
+    &:hover {
+      color: #f7ee40;
+      background-color: #754e46;
+    }
+  }
+}
+
+// Note: Background color is required to cover namecard behind.
+.blog-banner-background {
+  position: relative;
+  background-color: #ffedab;
+  background-image: url('../../../images/banner_garden.jpg');
+  background-size: cover;
+  width: 100%;
+  height: $banner-height;
+
+  .blog-banner-title {
+    position: absolute;
+    left: 16px;
+    bottom: 28px;
+    font-family: 'Vollkorn';
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    font-size: 3em;
+
+    .blog-banner-home-link {
+      text-decoration: none;
+      color: #ffffff;
+    }
+  }
+
+  .blog-banner-subtitle {
+    left: 18px;
+    bottom: 8px;
+    position: absolute;
+    font-family: 'Passion One';
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 1.25em;
+    letter-spacing: 0.05em;
+  }
+}
+
+.blog-banner-side-garden {
+  display: flex;
+  align-items: flex-end;
+  background: #322008;
+  background: linear-gradient(
+    115deg,
+    #150b02 0%,
+    #a2b2e2 10%,
+    #8596af 25%,
+    #4a5e7a 50%,
+    #3e2c1b 75%,
+    #322008 100%
+  );
+
+  .blog-banner-polygon-niwa {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 14px 14px;
+    & > * {
+      box-sizing: border-box;
+    }
+  }
+}
+
+// A simple circle.
+.maru {
+  width: $niwa-item-size-normal;
+  height: $niwa-item-size-normal;
+  border-style: solid;
+  border-radius: ($niwa-item-size-normal / 2);
+  border-width: $niwa-item-line-weight-normal;
+  border-color: $niwa-item-edge-color;
+  background-color: $niwa-item-fill-color;
+}
+
+// A long-lived border trick for generating triangle.
+// However it doesn't have transparent background so probably will
+// need to figure out some other way to implement it.
+.sankaku {
+  position: relative;
+  width: 0;
+  border-bottom: solid $niwa-item-size-normal $niwa-item-edge-color;
+  border-right: solid ($niwa-item-size-normal * $sqrt-one-third) transparent;
+  border-left: solid ($niwa-item-size-normal * $sqrt-one-third) transparent;
+
+  .sankaku-hollow {
+    position: absolute;
+    width: 0;
+    top: $niwa-item-line-weight-normal * 2;
+    left: -(($niwa-item-size-normal * $sqrt-one-third) -
+          ($niwa-item-line-weight-normal * $sqrt-three));
+    border-bottom: solid
+      ($niwa-item-size-normal - ($niwa-item-line-weight-normal * 3))
+      $niwa-item-fill-color;
+    border-right: solid
+      (
+        ($niwa-item-size-normal * $sqrt-one-third) -
+          ($niwa-item-line-weight-normal * $sqrt-three)
+      )
+      transparent;
+    border-left: solid
+      (
+        ($niwa-item-size-normal * $sqrt-one-third) -
+          ($niwa-item-line-weight-normal * $sqrt-three)
+      )
+      transparent;
+  }
+}
+
+// We need to shrink the square a little bit to make all the shapes look more
+// balanced in size.
+.shikaku {
+  width: (
+      ($niwa-item-size-normal - (2 * $niwa-item-line-weight-normal)) *
+        $shikaku-shrink
+    ) + (2 * $niwa-item-line-weight-normal);
+  height: (
+      ($niwa-item-size-normal - (2 * $niwa-item-line-weight-normal)) *
+        $shikaku-shrink
+    ) + (2 * $niwa-item-line-weight-normal);
+  border-width: $niwa-item-line-weight-normal;
+  border-color: $niwa-item-edge-color;
+  background-color: $niwa-item-fill-color;
+  border-style: solid;
+  margin-left: $niwa-item-line-weight-normal;
+}

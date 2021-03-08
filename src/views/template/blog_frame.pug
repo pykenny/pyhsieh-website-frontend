@@ -1,0 +1,25 @@
+mixin tagItem(tag_name)
+  .tag-item
+    a.tag-link= tag_name
+
+doctype html
+html
+  head
+    meta(http-equiv='X-UA-Compatible')
+    meta(charset='utf-8')
+    include favicon.pug
+    block headContent
+  body
+    .page-top-container
+      .banner
+        include banner.pug
+      .content-view
+        .content-view-main
+          block contentViewMain
+        .content-view-navigation
+          block contentViewNavigation
+      .sidebar
+        include taglist.pug
+      .footer
+        include footer.pug
+    block reactScripts

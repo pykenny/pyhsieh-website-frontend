@@ -1,0 +1,53 @@
+extends blog_frame.pug
+
+block headContent
+  link(
+    rel='stylesheet',
+    type='text/css',
+    href=`${F.createStaticStyleURL("blog_post")}`
+  )
+  title= F.createArticleTitle(postData.title)
+
+block reactScripts
+  script(type='text/javascript', src=`${F.createStaticScriptURL("blog_post")}`)
+
+mixin articleTitle(title, timestamp, tags)
+  .article-title-container
+    .article-title-title= title
+    .article-title-meta
+      .article-title-date.timestamp(timestamp=timestamp)
+      .article-title-tag-list
+        each tag in tags
+          span.article-title-tag-list-item
+            a.tag-link(href=`${F.createTagDefaultURL(tag)}`)= tag
+    hr.title-separator
+
+block contentViewMain
+  +articleTitle(postData.title, postData.timestamp, postData.tags)
+  .article-content-container.markdown !{postData.content}
+
+block contentViewNavigation
+  - var nextPageText = "< Next";
+  - var prevPageText = "Prev >";
+  hr.title-separator
+  .post-navigation-container
+    span(
+      class=`navigation-option next ${postData.synonymNext ? "enabled" : "disabled"}`
+    )
+      if postData.synonymNext
+        a(
+          class=`navigation-option-link`,
+          href=`${F.createArticleURL(postData.synonymNext)}`
+        )= nextPageText
+      else
+        a(class=`navigation-option-link`)= nextPageText
+    span(
+      class=`navigation-option prev ${postData.synonymPrev ? "enabled" : "disabled"}`
+    )
+      if postData.synonymPrev
+        a(
+          class=`navigation-option-link`,
+          href=`${F.createArticleURL(postData.synonymPrev)}`
+        )= prevPageText
+      else
+        a(class=`navigation-option-link`)= prevPageText

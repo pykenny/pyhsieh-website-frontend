@@ -1,0 +1,48 @@
+@use '../fonts/fonts';
+$font-redhat: 'Red Hat Display';
+
+.code-snippet {
+  position: relative;
+  border-width: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.snippet-toolbar-container {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  display: block;
+  z-index: 3;
+
+  &:hover > .snippet-toolbar {
+    color: #f5f5f5;
+  }
+}
+
+.snippet-toolbar {
+  color: #414141;
+}
+
+.snippet-language,
+.snippet-filename,
+.snippet-copy-btn {
+  display: inline;
+  font-family: $font-redhat;
+  font-size: 1em;
+  line-height: 1em;
+  padding: 0.25em;
+}
+
+.snippet-copy-btn {
+  vertical-align: middle;
+
+  &:hover {
+    cursor: pointer;
+    color: #ffff55;
+  }
+
+  &.copying {
+    color: #8dff1a;
+  }
+}

@@ -1,0 +1,62 @@
+@use '../fonts/fonts';
+@use './banner';
+@use './sidebar';
+@use './footer';
+@use '../../../../node_modules/purecss/build/base.css';
+
+body {
+  width: 100%;
+  min-width: 640px;
+  background-color: #ffedab;
+}
+
+.page-top-container {
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    'banner banner'
+    'content-view sidebar'
+    'footer footer';
+  grid-template-columns: 3fr 1fr;
+  justify-content: stretch;
+  align-content: start;
+
+  &.single-column-content {
+    grid-template-areas:
+      'banner'
+      'content-view'
+      'footer';
+    grid-template-columns: none;
+  }
+
+  & > * {
+    box-sizing: border-box;
+  }
+}
+
+.banner {
+  grid-area: banner;
+  position: relative;
+}
+
+.content-view {
+  grid-area: content-view;
+  min-width: 0;
+  margin: 0.75em;
+  padding: 1.25em;
+  border-radius: 8px;
+  background-color: #fffff0;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  min-width: 0;
+  margin: 0.75em 0.75em 0.75em 0;
+  padding: 1.25em;
+  border-radius: 8px;
+  background-color: #fffff0;
+}
+
+.footer {
+  grid-area: footer;
+}

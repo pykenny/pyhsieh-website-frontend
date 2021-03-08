@@ -1,0 +1,50 @@
+- var mediaIconSize = "20";
+- var srcLinkIconSize = "16";
+
+.blog-banner-container
+  #blog-banner-bussiness-card.blog-banner-bussiness-card
+    .blog-banner-bussiness-card-content
+      .blog-banner-bussiness-card-title About this Site &amp; Author
+      .blog-banner-bussiness-card-description A software developer who likes digging into the details.
+      .blog-banner-bussiness-card-media-list
+        a(href=`${C.linkedinURL}`, rel='noreferrer noopener', target='_blank')
+          .blog-banner-bussiness-card-media-item
+            i.blog-banner-bussiness-card-media-icon(
+              data-feather='linkedin',
+              width=mediaIconSize,
+              height=mediaIconSize
+            )
+        a(href=`${C.githubURL}`, rel='noreferrer noopener', target='_blank')
+          .blog-banner-bussiness-card-media-item
+            i.blog-banner-bussiness-card-media-icon(
+              data-feather='github',
+              width=mediaIconSize,
+              height=mediaIconSize
+            )
+        .blog-banner-bussiness-card-source-links
+          | Site Source:
+          a(
+            href=`${C.frontSrcURL}`,
+            rel='noreferrer noopener',
+            target='_blank'
+          )
+            .blog-banner-bussiness-card-source-link
+              | Front-End
+              i.blog-banner-bussiness-card-media-icon(
+                data-feather='grid',
+                width=srcLinkIconSize,
+                height=srcLinkIconSize
+              )
+          a(href=`${C.backSrcURL}`, rel='noreferrer noopener', target='_blank')
+            .blog-banner-bussiness-card-source-link
+              | Back-End
+              i.blog-banner-bussiness-card-media-icon(
+                data-feather='server',
+                width=srcLinkIconSize,
+                height=srcLinkIconSize
+              )
+
+  .blog-banner-background
+    .blog-banner-title
+      a.blog-banner-home-link(href=`${C.blogTopURL}`)= 'Layperson\'s Notes'
+    .blog-banner-subtitle= "Slightly better than reinventing the wheels ⚙"

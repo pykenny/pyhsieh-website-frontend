@@ -1,0 +1,59 @@
+.tag-title {
+  margin-bottom: 12px;
+  font-size: 1.75em;
+  font-family: 'Crimson Pro';
+  font-weight: 600;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-item {
+  display: inline;
+  font-family: 'Red Hat Display';
+  font-weight: 500;
+  margin-right: 0.5em;
+
+  .tag-link {
+    text-decoration: none;
+    color: #222f9a;
+    background-image: linear-gradient(
+      to right top,
+      #1f197f,
+      #222f9a,
+      #2345b4,
+      #1e5bd0,
+      #1271eb
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &:focus,
+    &:hover {
+      color: #bf06d1;
+      background-image: linear-gradient(
+        to right top,
+        #bf06d1,
+        #ff0092,
+        #ff4355,
+        #ff8e1e,
+        #ebc612
+      );
+    }
+
+    &:active {
+      color: #eba82a;
+      background-image: linear-gradient(
+        to right top,
+        #eba82a,
+        #f2bd32,
+        #f8d23c,
+        #fce749,
+        #fffd59
+      );
+    }
+  }
+}
