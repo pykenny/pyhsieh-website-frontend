@@ -78,7 +78,6 @@ const parseArguments = (procArgv) => {
       // Default logging settings (daily and kept for 60 days)
       {
         'rotate-settings': {
-          compress: false,
           mode: 0o660,
           interval: '1d',
           maxFiles: 60,
