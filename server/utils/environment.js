@@ -10,22 +10,29 @@ class ServerEnvError extends Error {
   }
 }
 
-const REQUIRED_KEYS = [
+const REQUIRED_KEYS_GENERAL = [
   'SITE_HOST',
   'BACKEND_RESOURCE_HOST',
   'IMAGE_DIR_PATH',
   'SERVER_PORT',
   'EXTERNAL_LINKS',
-  'SSL_KEY_PATH',
-  'SSL_CERT_PATH',
 ];
 
-function validateServerEnv(serverEnv) {
-  REQUIRED_KEYS.forEach((key) => {
-    if (!(key in serverEnv)) {
+const REQUIRED_KEYS_DEV = ['SSL_KEY_PATH', 'SSL_CERT_PATH'];
+
+function checkKeyExistence(keys, env) {
+  keys.forEach((key) => {
+    if (!(key in env)) {
       throw ServerEnvError(key);
     }
   });
+}
+
+function validateServerEnv(serverEnv) {
+  checkKeyExistence(REQUIRED_KEYS_GENERAL, serverEnv);
+  if (process.env.NODE_ENV === 'development') {
+    checkKeyExistence(REQUIRED_KEYS_DEV, serverEnv);
+  }
 }
 
 function initServerEnv() {

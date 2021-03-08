@@ -26,8 +26,8 @@ BACKEND_RESOURCE_HOST="Your backend resouce management host. e.g., http://localh
 IMAGE_DIR_PATH="Path for where you store images for blog posts."
 SERVER_PORT="Port you'd like the dev server to run upon."
 EXTERNAL_LINKS="External links you want to use in the website. e.g., {"githubURL": "https://github.com/pykenny"}"
-SSL_KEY_PATH="Path of SSL key generated in previous step."
-SSL_CERT_PATH="Path of SSL cert generated in previous step."
+SSL_KEY_PATH="Path of SSL key. (You can skip it in production settings.)"
+SSL_CERT_PATH="Path of SSL certificate. (You can skip it in production settings.)"
 ```
 
 ## Installation

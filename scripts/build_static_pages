@@ -2,11 +2,9 @@
 const Path = require('path');
 
 const fastGlob = require('fast-glob');
+require('../server/utils/environment')();
 
-const initServerEnv = require('../server/utils/environment');
 const { buildStaticPage } = require('../server/utils/static_pages');
-
-initServerEnv();
 
 const SOURCE_TEMPLATES_GLOB = Path.join(__dirname, '../src/views/static/*.pug');
 
